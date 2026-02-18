@@ -44,6 +44,7 @@ In particular, non-trivial modifications were required to ensure compatibility b
 
 ## Example Training Command
 
+Run from 'src'.
 ```bash
 python -m gflownet.tasks.resolve_tasks.run_my_fragments_gfn \
   --fragments-csv gflownet/tasks/resolve_tasks/unique_fragments.csv \
@@ -52,6 +53,7 @@ python -m gflownet.tasks.resolve_tasks.run_my_fragments_gfn \
   --refractive 1.333 \
   --target-value 3.8 \
   --steps 50000
+
 
 
 
