@@ -1,4 +1,4 @@
-# 🧪 ReSolved-Next
+# ReSolvedNext
 
 Fragment-Based Molecular Generation with GFlowNets and Solvent-Aware Property Optimisation
 
@@ -27,3 +27,4 @@ python -m gflownet.tasks.resolve_tasks.run_my_fragments_gfn \
   --dielectric 78.4 \
   --refractive 1.333 \
   --steps 50000
+
