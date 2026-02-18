@@ -57,6 +57,86 @@ Key contributions include:
 
 In particular, non-trivial modifications were required to ensure compatibility between BRICS-derived fragments and the fragment-building environment, as well as to resolve version and architecture-specific dependency issues.
 
+## Training Outputs & Results
+
+All training outputs are saved under:
+
+```
+src/logs/
+```
+
+Each training run creates a timestamped directory of the form:
+
+```
+resolve_my_fragments_YYYYMMDD_HHMMSS
+```
+
+For example:
+
+```
+src/logs/resolve_my_fragments_20260212_171022/
+```
+
+Inside this directory you will find:
+
+```
+config.yaml                         # Full training configuration
+model_state.pt                      # Saved model checkpoint
+train.log                           # Training log output
+events.out.tfevents.*               # TensorBoard logs
+train/                              # Training metrics
+valid/                              # Validation outputs
+```
+
+### Generated Molecules
+
+Generated molecules are stored in the `valid/` subdirectory as a SQLite database:
+
+```
+src/logs/<run_name>/valid/generated_objs_0.db
+```
+
+This database contains the sampled molecules along with their associated rewards and properties.
+
+---
+
+## Post-Processing & Analysis
+
+To analyse the generated molecules:
+
+1. Copy the file:
+
+```
+generated_objs_0.db
+```
+
+from:
+
+```
+src/logs/<run_name>/valid/
+```
+
+into:
+
+```
+gflownet/tasks/resolve_tasks/post_process/
+```
+
+2. From the `src/` directory, run:
+
+```bash
+python -m gflownet.tasks.resolve_tasks.post_process.run_postprocess
+```
+
+The post-processing script will:
+
+- Load generated molecules
+- Remove invalid or dummy-containing structures
+- Deduplicate by SMILES
+- Rank molecules by reward
+- Export processed results for further analysis
+
+
 
 ## Example Training Command
 
@@ -69,6 +149,7 @@ python -m gflownet.tasks.resolve_tasks.run_my_fragments_gfn \
   --refractive 1.333 \
   --target-value 3.8 \
   --steps 50000
+
 
 
 
