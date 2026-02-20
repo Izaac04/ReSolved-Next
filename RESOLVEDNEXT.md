@@ -84,49 +84,6 @@ config.yaml                         # Full training configuration
 model_state.pt                      # Saved model checkpoint
 train.log                           # Training log output
 events.out.tfevents.*               # TensorBoard logs
-train/                              # Training metrics
-valid/                              # Validation outputs
-```
-
-### Generated Molecules
-
-Generated molecules are stored in the `valid/` subdirectory as a SQLite database:
-
-```
-src/logs/<run_name>/valid/generated_objs_0.db
-```
-
-This database contains the sampled molecules along with their associated rewards and properties.
-
----
-
-## Training Outputs & Results
-
-All training outputs are saved under:
-
-```
-src/logs/
-```
-
-Each training run creates a timestamped directory of the form:
-
-```
-resolve_my_fragments_YYYYMMDD_HHMMSS
-```
-
-For example:
-
-```
-src/logs/resolve_my_fragments_20260212_171022/
-```
-
-Inside this directory you will find:
-
-```
-config.yaml                         # Full training configuration
-model_state.pt                      # Saved model checkpoint
-train.log                           # Training log output
-events.out.tfevents.*               # TensorBoard logs
 train/                              # Generated molecules from training rollouts
 valid/                              # Generated molecules from validation rollouts
 ```
@@ -202,3 +159,4 @@ python -m gflownet.tasks.resolve_tasks.run_my_fragments_gfn \
   --refractive 1.333 \
   --target-value 3.8 \
   --steps 50000
+
