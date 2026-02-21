@@ -313,18 +313,8 @@ class FragMolBuildingEnvContext(GraphBuildingEnvContext):
         return _recursive_decompose(self, mol, all_matches, {}, [], [], self.max_frags)
 
     def graph_to_obj(self, g: Graph) -> Chem.Mol:
-        """Convert a Graph to an RDKit molecule
+        """Convert a Graph to an RDKit molecule (BRICS-style dummy handling)"""
 
-        Parameters
-        ----------
-        g: Graph
-            A Graph instance representing a fragment junction tree.
-
-        Returns
-        -------
-        m: Chem.Mol
-            The corresponding RDKit molecule
-        """
         offsets = np.cumsum([0] + [self.frags_numatm[g.nodes[i]["v"]] for i in g])
         mol = None
         for i in g.nodes:
@@ -333,23 +323,60 @@ class FragMolBuildingEnvContext(GraphBuildingEnvContext):
             else:
                 mol = Chem.CombineMols(mol, self.frags_mol[g.nodes[i]["v"]])
 
-        mol = Chem.EditableMol(mol)
-        bond_atoms = []
+        # Use RWMol so we can remove atoms later
+        rw = Chem.RWMol(mol)
+
+        bond_atoms = []          # atoms to de-H after bonding (real atoms only)
+        dummies_to_remove = set()  # absolute atom indices of dummy atoms to delete
+
+        def _resolve_attach_atom(abs_idx: int) -> int:
+            """
+            If abs_idx is a dummy atom ([*], [5*], etc.), return its neighbor atom index
+            and mark the dummy for removal. Otherwise return abs_idx unchanged.
+            """
+            atom = rw.GetAtomWithIdx(abs_idx)
+            if atom.GetAtomicNum() != 0:
+                return abs_idx
+
+            nbrs = list(atom.GetNeighbors())
+            if len(nbrs) != 1:
+                # A BRICS dummy should have exactly one neighbor; otherwise the structure is weird
+                raise ValueError(f"Dummy atom at idx {abs_idx} has {len(nbrs)} neighbors (expected 1).")
+
+            dummies_to_remove.add(abs_idx)
+            return nbrs[0].GetIdx()
+
+        # --- add bonds according to junction tree edges ---
         for a, b in g.edges:
             afrag = g.nodes[a]["v"]
             bfrag = g.nodes[b]["v"]
             if self.fail_on_missing_attr:
                 assert "src_attach" in g.edges[(a, b)] and "dst_attach" in g.edges[(a, b)]
-            u, v = (
-                int(self.frags_stems[afrag][g.edges[(a, b)].get("src_attach", 0)] + offsets[a]),
-                int(self.frags_stems[bfrag][g.edges[(a, b)].get("dst_attach", 0)] + offsets[b]),
-            )
-            bond_atoms += [u, v]
-            mol.AddBond(u, v, Chem.BondType.SINGLE)
-        mol = mol.GetMol()
 
-        def _pop_H(atom):
-            atom = mol.GetAtomWithIdx(atom)
+            u_raw = int(self.frags_stems[afrag][g.edges[(a, b)].get("src_attach", 0)] + offsets[a])
+            v_raw = int(self.frags_stems[bfrag][g.edges[(a, b)].get("dst_attach", 0)] + offsets[b])
+
+            # BRICS-style: if u/v are dummy atoms, bond their neighbors and remove dummies
+            u = _resolve_attach_atom(u_raw)
+            v = _resolve_attach_atom(v_raw)
+
+            bond_atoms += [u, v]
+            rw.AddBond(u, v, Chem.BondType.SINGLE)
+
+        # --- remove dummy atoms AFTER all bonds are added ---
+        # remove highest indices first so earlier indices remain valid
+        for idx in sorted(dummies_to_remove, reverse=True):
+            rw.RemoveAtom(idx)
+
+        mol = rw.GetMol()
+
+        # --- pop explicit H from bond atoms (skip invalid indices / dummies) ---
+        def _pop_H(atom_idx: int):
+            if atom_idx < 0 or atom_idx >= mol.GetNumAtoms():
+                return
+            atom = mol.GetAtomWithIdx(atom_idx)
+            if atom.GetAtomicNum() == 0:
+                return
             nh = atom.GetNumExplicitHs()
             if nh > 0:
                 atom.SetNumExplicitHs(nh - 1)
