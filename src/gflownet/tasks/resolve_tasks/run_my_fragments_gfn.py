@@ -9,11 +9,14 @@ from gflownet.config import Config, init_empty
 from .trainer import MyFragmentsResolveTrainer
 
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FRAGMENTS_CSV = os.path.join(BASE_DIR, "unique_fragments.csv")
+CHECKPOINT_PATH = os.path.join(BASE_DIR, "best_model.pth")
+
+
 """
 Example run command:
 python -m gflownet.tasks.resolve_tasks.run_my_fragments_gfn \
-  --fragments-csv gflownet/tasks/resolve_tasks/unique_fragments.csv \
-  --checkpoint gflownet/tasks/resolve_tasks/best_model.pth \
   --dielectric 78.4 \
   --refractive 1.333 \
   --target-value 3.8 \
@@ -25,10 +28,9 @@ def main():
     print(">>> LOADING MyFragmentsResolveTask FROM:", __file__)
 
     ap = argparse.ArgumentParser()
-    ap.add_argument("--fragments-csv", type=str, default="unique_fragments.csv")
-    ap.add_argument("--checkpoint", type=str, default="best_model.pth")
     ap.add_argument("--log-dir", type=str, default=None)
     ap.add_argument("--steps", type=int, default=50_000)
+
     ap.add_argument(
         "--dielectric",
         type=float,
@@ -51,8 +53,11 @@ def main():
     )
     args = ap.parse_args()
 
-    if not os.path.exists(args.checkpoint):
-        raise FileNotFoundError(f"Checkpoint not found: {args.checkpoint}")
+    if not os.path.exists(CHECKPOINT_PATH):
+        raise FileNotFoundError(f"Checkpoint not found: {CHECKPOINT_PATH}")
+
+    if not os.path.exists(FRAGMENTS_CSV):
+        raise FileNotFoundError(f"Fragments CSV not found: {FRAGMENTS_CSV}")
 
     cfg = init_empty(Config())
 
@@ -73,8 +78,8 @@ def main():
 
     trainer = MyFragmentsResolveTrainer(
         cfg=cfg,
-        fragments_csv=args.fragments_csv,
-        checkpoint_path=args.checkpoint,
+        fragments_csv=FRAGMENTS_CSV,
+        checkpoint_path=CHECKPOINT_PATH,
         dielectric=args.dielectric,
         refractive=args.refractive,
         target_value=args.target_value,
