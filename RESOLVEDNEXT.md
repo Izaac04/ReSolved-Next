@@ -1,4 +1,4 @@
-# ReSolvedNext
+# ReSolved-Next
 
 Fragment-Based Molecular Generation with GFlowNets and Solvent-Aware Property Optimisation
 
@@ -221,6 +221,7 @@ The post-processing script will:
 - Deduplicate by SMILES
 - Rank molecules by reward
 - Export processed results for further analysis
+
 
 
 
