@@ -57,6 +57,73 @@ Key contributions include:
 
 In particular, non-trivial modifications were required to ensure compatibility between BRICS-derived fragments and the fragment-building environment, as well as to resolve version and architecture-specific dependency issues.
 
+## 🚀 Setup Instructions
+
+Follow the steps below to set up **ReSolved-Next** locally.
+
+---
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/yourusername/ReSolved-Next.git
+cd ReSolved-Next
+```
+
+---
+
+### 2️⃣ Create and Activate a Virtual Environment
+
+It is recommended to use a dedicated virtual environment to avoid dependency conflicts.
+
+```bash
+# Create virtual environment
+python3 -m venv resolvednext_venv
+
+# Activate it (macOS / Linux)
+source resolvednext_venv/bin/activate
+
+# On Windows:
+# resolvednext_venv\Scripts\activate
+```
+
+---
+
+### 3️⃣ Install PyTorch
+
+Install the exact PyTorch version used in this project:
+
+```bash
+pip install torch==2.3.1 torchvision==0.18.1 torchaudio==2.3.1
+```
+
+> ⚠️ If you are using CUDA, install the appropriate CUDA-enabled version from:  
+> https://pytorch.org/get-started/locally/
+
+---
+
+### 4️⃣ Install PyTorch Geometric
+
+Install the compatible PyTorch Geometric dependencies:
+
+```bash
+pip install torch-scatter torch-sparse torch-geometric -f https://data.pyg.org/whl/torch-2.3.1+cpu.html
+```
+
+> If using CUDA, replace `+cpu` with the correct CUDA build.
+
+---
+
+### 5️⃣ Install Remaining Dependencies
+
+Finally, install all remaining project requirements:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
 ## Training Outputs & Results
 
 All training outputs are saved under:
@@ -159,4 +226,5 @@ python -m gflownet.tasks.resolve_tasks.run_my_fragments_gfn \
   --refractive 1.333 \
   --target-value 3.8 \
   --steps 50000
+
 
