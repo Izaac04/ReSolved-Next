@@ -124,8 +124,6 @@ pip install -r requirements.txt
 Run from 'src'.
 ```bash
 python -m gflownet.tasks.resolve_tasks.run_my_fragments_gfn \
-  --fragments-csv gflownet/tasks/resolve_tasks/unique_fragments.csv \
-  --checkpoint gflownet/tasks/resolve_tasks/best_model.pth \
   --dielectric 78.4 \
   --refractive 1.333 \
   --target-value 3.8 \
@@ -223,6 +221,7 @@ The post-processing script will:
 - Deduplicate by SMILES
 - Rank molecules by reward
 - Export processed results for further analysis
+
 
 
 
