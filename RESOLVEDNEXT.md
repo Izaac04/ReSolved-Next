@@ -57,13 +57,13 @@ Key contributions include:
 
 In particular, non-trivial modifications were required to ensure compatibility between BRICS-derived fragments and the fragment-building environment, as well as to resolve version and architecture-specific dependency issues.
 
-## 🚀 Setup Instructions
+##  Setup Instructions
 
 Follow the steps below to set up **ReSolved-Next** locally.
 
 ---
 
-### 1️⃣ Clone the Repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/yourusername/ReSolved-Next.git
@@ -72,7 +72,7 @@ cd ReSolved-Next
 
 ---
 
-### 2️⃣ Create and Activate a Virtual Environment
+### 2. Create and Activate a Virtual Environment
 
 It is recommended to use a dedicated virtual environment to avoid dependency conflicts.
 
@@ -89,7 +89,7 @@ source resolvednext_venv/bin/activate
 
 ---
 
-### 3️⃣ Install PyTorch
+### 3. Install PyTorch
 
 Install the exact PyTorch version used in this project:
 
@@ -97,12 +97,9 @@ Install the exact PyTorch version used in this project:
 pip install torch==2.3.1 torchvision==0.18.1 torchaudio==2.3.1
 ```
 
-> ⚠️ If you are using CUDA, install the appropriate CUDA-enabled version from:  
-> https://pytorch.org/get-started/locally/
-
 ---
 
-### 4️⃣ Install PyTorch Geometric
+### 4 Install PyTorch Geometric
 
 Install the compatible PyTorch Geometric dependencies:
 
@@ -114,7 +111,7 @@ pip install torch-scatter torch-sparse torch-geometric -f https://data.pyg.org/w
 
 ---
 
-### 5️⃣ Install Remaining Dependencies
+### 5 Install Remaining Dependencies
 
 Finally, install all remaining project requirements:
 
@@ -226,6 +223,7 @@ The post-processing script will:
 - Deduplicate by SMILES
 - Rank molecules by reward
 - Export processed results for further analysis
+
 
 
 
