@@ -133,7 +133,7 @@ python -m gflownet.tasks.resolve_tasks.run_my_fragments_gfn \
   --refractive 1.333 \
   --target-value 3.8 \
   --steps 50000
-
+```
 ---
 
 ## Training Outputs & Results
@@ -226,6 +226,7 @@ The post-processing script will:
 - Deduplicate by SMILES
 - Rank molecules by reward
 - Export processed results for further analysis
+
 
 
 
