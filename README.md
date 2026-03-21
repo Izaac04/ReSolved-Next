@@ -61,7 +61,7 @@ Follow the steps below to set up **ReSolved-Next** locally.
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Izaac04/ReSolved-Next.git
+git clone [https://github.com/Izaac04/ReSolved-Next.git](https://github.com/Izaac04/ReSolved-Next.git)
 cd ReSolved-Next
 ```
 
@@ -94,19 +94,19 @@ pip install torch==2.3.1 torchvision==0.18.1 torchaudio==2.3.1
 
 ---
 
-### 4 Install PyTorch Geometric
+### 4. Install PyTorch Geometric
 
 Install the compatible PyTorch Geometric dependencies:
 
 ```bash
-pip install torch-scatter torch-sparse torch-geometric -f https://data.pyg.org/whl/torch-2.3.1+cpu.html
+pip install torch-scatter torch-sparse torch-geometric -f [https://data.pyg.org/whl/torch-2.3.1+cpu.html](https://data.pyg.org/whl/torch-2.3.1+cpu.html)
 ```
 
 > If using CUDA, replace `+cpu` with the correct CUDA build.
 
 ---
 
-### 5 Install Remaining Dependencies
+### 5. Install Remaining Dependencies
 
 Finally, install all remaining project requirements:
 
