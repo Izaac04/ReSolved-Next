@@ -133,7 +133,7 @@ pip install torch_geometric==2.4.0
 ### 6. Install GFlowNets
 
 ```bash
-pip install git+[https://github.com/Izaac04/GFlowNets.git@main](https://github.com/Izaac04/GFlowNets.git@main)
+pip install git+https://github.com/Izaac04/GFlowNets.git@main
 ```
 
 ---
