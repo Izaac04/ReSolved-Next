@@ -16,7 +16,7 @@ CHECKPOINT_PATH = os.path.join(BASE_DIR, "best_model.pth")
 
 """
 Example run command:
-python -m gflownet.tasks.resolve_tasks.run_my_fragments_gfn \
+python -m ReSolvedNextTasks.run_my_fragments_gfn \
   --dielectric 78.4 \
   --refractive 1.333 \
   --target-value 3.8 \
