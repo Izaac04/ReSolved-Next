@@ -181,7 +181,9 @@ These databases contain sampled molecules along with their associated rewards an
 
 To analyse generated molecules:
 
-1. Copy the desired database file:
+1. Create a results directory inside postProcess.
+
+2. Copy the desired database file:
 
 ```
 generated_objs_0.db
@@ -205,7 +207,7 @@ into:
 ReSolvedNextTasks/postProcess/
 ```
 
-2. From the `src/` directory, run:
+3. From the `src/` directory, run:
 
 ```bash
 python -m ReSolvedNextTasks.postProcess.run_postprocess
