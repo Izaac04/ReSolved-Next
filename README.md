@@ -52,7 +52,7 @@ Key contributions include:
 
 In particular, non-trivial modifications were required to ensure compatibility between BRICS-derived fragments and the fragment-building environment, as well as to resolve version and architecture-specific dependency issues.
 
-##  Setup Instructions
+## Setup Instructions
 
 Follow the steps below to set up **ReSolved-Next** locally.
 
@@ -67,13 +67,13 @@ cd ReSolved-Next
 
 ---
 
-### 2. Create and Activate a Virtual Environment
+### 2. Create and Activate a Virtual Environment (Python 3.10 REQUIRED)
 
-It is recommended to use a dedicated virtual environment to avoid dependency conflicts.
+This project is **not compatible with Python 3.12**. Use Python 3.10.
 
 ```bash
-# Create virtual environment
-python3 -m venv resolvednext_venv
+# Create virtual environment (must be Python 3.10)
+python3.10 -m venv resolvednext_venv
 
 # Activate it (macOS / Linux)
 source resolvednext_venv/bin/activate
@@ -82,38 +82,75 @@ source resolvednext_venv/bin/activate
 # resolvednext_venv\Scripts\activate
 ```
 
----
-
-### 3. Install PyTorch
-
-Install the exact PyTorch version used in this project:
+**Verify:**
 
 ```bash
-pip install torch==2.3.1 torchvision==0.18.1 torchaudio==2.3.1
+python --version
+```
+
+**Expected output:**
+`Python 3.10.x`
+
+---
+
+### 3. Install Build Dependencies
+
+These fix known issues with PyTorch extension builds.
+
+```bash
+pip install --upgrade pip
+pip install setuptools==69.5.1 wheel packaging
 ```
 
 ---
 
-### 4. Install PyTorch Geometric
-
-Install the compatible PyTorch Geometric dependencies:
+### 4. Install PyTorch (Required Version)
 
 ```bash
-pip install torch-scatter torch-sparse torch-geometric -f [https://data.pyg.org/whl/torch-2.3.1+cpu.html](https://data.pyg.org/whl/torch-2.3.1+cpu.html)
+pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2
 ```
-
-> If using CUDA, replace `+cpu` with the correct CUDA build.
 
 ---
 
-### 5. Install Remaining Dependencies
+### 5. Install PyTorch Geometric
 
-Finally, install all remaining project requirements:
+Install the required PyTorch Geometric dependencies manually:
+
+```bash
+pip install --no-cache-dir --no-build-isolation \
+  torch_scatter==2.1.2 \
+  torch_sparse==0.6.18 \
+  torch_cluster==1.6.3 \
+  -f [https://data.pyg.org/whl/torch-2.1.2+cpu.html](https://data.pyg.org/whl/torch-2.1.2+cpu.html)
+
+pip install torch_geometric==2.4.0
+```
+
+> If using CUDA, replace `+cpu` with the appropriate CUDA build.
+
+---
+
+### 6. Install GFlowNets
+
+```bash
+pip install git+[https://github.com/Izaac04/GFlowNets.git@main](https://github.com/Izaac04/GFlowNets.git@main)
+```
+
+---
+
+### 7. Install Remaining Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
+---
+
+### Notes
+* **Python 3.10** is required.
+* Python 3.12 is **not supported**.
+* PyTorch and PyTorch Geometric versions must match exactly.
+* PyG dependencies are installed separately due to native build requirements.
 ## Example Training Command
 
 Run from 'src'.
