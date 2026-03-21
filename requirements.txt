@@ -79,4 +79,3 @@ wandb==0.25.1
 Werkzeug==3.1.6
 xxhash==3.6.0
 yarl==1.23.0
-gflownet @ git+https://github.com/Izaac04/GFlowNets.git@main
