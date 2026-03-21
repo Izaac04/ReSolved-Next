@@ -22,7 +22,7 @@ python -m ReSolvedNextTasks.run_my_fragments_gfn \
   --target-value 3.8 \
   --best-metric sampled_reward_avg \
   --best-metric-mode max \
-  --steps 50000
+  --steps 3000
 """
 
 
