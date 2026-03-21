@@ -10,7 +10,7 @@ from gflownet.online_trainer import StandardOnlineTrainer
 from gflownet.trainer import cycle
 from gflownet.utils.misc import create_logger
 
-from gflownet.tasks.resolve_tasks.task import MyFragmentsResolveTask
+from .task import MyFragmentsResolveTask
 from .utils import load_my_fragments
 
 

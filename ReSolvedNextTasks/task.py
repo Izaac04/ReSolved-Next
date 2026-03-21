@@ -7,8 +7,8 @@ from torch_geometric.data import Batch
 
 from gflownet import GFNTask, LogScalar, ObjectProperties
 from gflownet.envs.frag_mol_env import FragMolBuildingEnvContext
-from gflownet.tasks.synth_gnn.load import load_synth_proxy
-from gflownet.tasks.synth_gnn.featurise import smiles_to_data
+from synth_gnn.load import load_synth_proxy
+from synth_gnn.featurise import smiles_to_data
 from gflownet.utils.conditioning import TemperatureConditional
 from gflownet.utils.transforms import to_logreward
 from gflownet.utils.misc import get_worker_device
