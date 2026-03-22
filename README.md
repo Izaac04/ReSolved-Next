@@ -61,7 +61,7 @@ Follow the steps below to set up **ReSolved-Next** locally.
 ### 1. Clone the Repository
 
 ```bash
-git clone [https://github.com/Izaac04/ReSolved-Next.git](https://github.com/Izaac04/ReSolved-Next.git)
+git clone https://github.com/Izaac04/ReSolved-Next.git
 cd ReSolved-Next
 ```
 
