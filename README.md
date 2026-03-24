@@ -151,6 +151,7 @@ pip install -r requirements.txt
 * Python 3.12 is **not supported**.
 * PyTorch and PyTorch Geometric versions must match exactly.
 * PyG dependencies are installed separately due to native build requirements.
+* You will need Numpy 1.26.4.
 ## Example Training Command
 
 Run from 'src'.
