@@ -90,6 +90,20 @@ class MyFragmentsResolveTrainer(StandardOnlineTrainer):
         with open(fn, "wb") as fd:
             torch.save(state, fd)
 
+    def _load_best_state_for_final_generation(self):
+        best_ckpt_path = pathlib.Path(self.cfg.log_dir) / "best_model_state.pt"
+        if not best_ckpt_path.exists():
+            return False
+
+        ckpt = torch.load(best_ckpt_path, map_location="cpu", weights_only=False)
+        self.model.load_state_dict(ckpt["models_state_dict"][0])
+        self.sampling_model.load_state_dict(
+            ckpt.get("sampling_model_state_dict", ckpt["models_state_dict"])[0]
+        )
+        self.model.to(self.device)
+        self.sampling_model.to(self.device)
+        return True
+
     @staticmethod
     def _mean_validation_info(infos: list[dict]) -> dict:
         if not infos:
@@ -240,6 +254,8 @@ class MyFragmentsResolveTrainer(StandardOnlineTrainer):
         num_final_gen_steps = self.cfg.num_final_gen_steps
         final_info = {}
         if num_final_gen_steps:
+            if self._load_best_state_for_final_generation():
+                logger.info("Reloaded best_model_state.pt for final generation.")
             logger.info(f"Generating final {num_final_gen_steps} batches ...")
             for it, batch in zip(
                     range(num_training_steps + 1, num_training_steps + num_final_gen_steps + 1),
