@@ -1,4 +1,4 @@
-# ReSolved-Next
+# ReSolved-Flow
 
 Fragment-Based Molecular Generation with GFlowNets and Solvent-Aware Property Optimisation
 
@@ -6,7 +6,7 @@ Fragment-Based Molecular Generation with GFlowNets and Solvent-Aware Property Op
 
 ## Overview
 
-ReSolved-Next is a research framework integrating Generative Flow Networks (GFlowNets) with a solvent-conditioned graph neural network proxy for redox potential prediction.
+ReSolved-Flow is a research framework integrating Generative Flow Networks (GFlowNets) with a solvent-conditioned graph neural network proxy for redox potential prediction.
 
 The system generates novel molecules using fragment-based construction and samples them in proportion to a multi-objective reward combining:
 
@@ -19,16 +19,16 @@ The system generates novel molecules using fragment-based construction and sampl
 
 ## Relationship to ReSolved
 
-ReSolved-Next builds upon **ReSolved**, an open-source solvent-aware graph neural network framework developed by Rostislav Fedorov.
+ReSolved-Flow builds upon **ReSolved**, an open-source solvent-aware graph neural network framework developed by Rostislav Fedorov.
 
 ReSolved is designed to predict redox potentials of organic molecules using a message passing neural network (MPNN) architecture. A key feature of ReSolved is its explicit solvent conditioning: molecular graphs are augmented with solvent descriptors (e.g., dielectric constant ε and refractive index n), enabling the model to learn solvent-dependent electrochemical behaviour.
 
-While ReSolved focuses on property prediction for existing molecules, ReSolved-Next extends this framework into the generative setting. Specifically, ReSolved-Next integrates the ReSolved proxy model into a Generative Flow Network (GFlowNet), allowing the direct generation of novel molecules sampled in proportion to their predicted solvent-conditioned redox properties.
+While ReSolved focuses on property prediction for existing molecules, ReSolved-Flow extends this framework into the generative setting. Specifically, ReSolved-Flow integrates the ReSolved proxy model into a Generative Flow Network (GFlowNet), allowing the direct generation of novel molecules sampled in proportion to their predicted solvent-conditioned redox properties.
 
 In summary:
 
 - **ReSolved** → Predicts solvent-dependent redox potentials.
-- **ReSolved-Next** → Generates new molecules optimised for those properties under solvent conditioning.
+- **ReSolved-Flow** → Generates new molecules optimised for those properties under solvent conditioning.
 
 This extension transforms a predictive model into a generative optimisation framework capable of exploring chemically meaningful design space under explicit solvent constraints.
 
@@ -54,15 +54,15 @@ In particular, non-trivial modifications were required to ensure compatibility b
 
 ## Setup Instructions
 
-Follow the steps below to set up **ReSolved-Next** locally.
+Follow the steps below to set up **ReSolved-Flow** locally.
 
 ---
 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Izaac04/ReSolved-Next.git
-cd ReSolved-Next
+git clone https://github.com/Izaac04/ReSolved-Flow.git
+cd ReSolved-Flow
 ```
 
 ---
